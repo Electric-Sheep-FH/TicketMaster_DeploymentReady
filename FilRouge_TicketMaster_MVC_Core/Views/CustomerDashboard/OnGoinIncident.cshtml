@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model FilRouge_TicketMaster_MVC_Core.ViewModels.CustomerTicketBoardViewModel
+@inject UserManager<IdentityUser> UserManager;
+
+<div class="container-lg px-2 py-3 radius25 second-color" style="height: 75vh;">
+    <div class="row mx-2 radius10 first-color justify-content-center h-50">
+        <div class="col-11 col-md-6 col-xl-4 my-2 second-color radius10 d-flex justify-content-center align-items-center text-white">
+            <h1 class="fs-2 fs-md-3 fs-lg-4">Vos incidents en cours</h1>
+        </div>
+        <div class="col-11 overflow-auto d-flex flex-column align-items-center h-75">
+            @foreach (TicketHistory ticket in Model.openTicket)
+            {
+                <div class="col-12 col-xl-8 border border-1 border-dark fourth-color radius10 text-center d-flex align-items-center mb-1">
+                    <div class="col-9 d-flex justify-content-center align-items-center h-100">
+                        <p class="mb-0"><b>Ticket n°@ticket.TicketId</b> - MàJ le @ticket.StatusDate - En cours</p>
+                    </div>
+                    <div class="col-3 col-md-1 d-flex justify-content-center align-items-center py-1">
+                        <a class="btn btn-third-color third-color" asp-controller="TicketView" asp-action="TicketDetails" asp-route-id="@ticket.TicketId" role="button">></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row mx-2 mt-2 radius10 first-color justify-content-center h-50">
+        <div class="col-11 col-md-6 col-xl-4 my-2 second-color radius10 d-flex justify-content-center align-items-center text-white text-white">
+            <h1 class="fs-2 fs-md-3 fs-lg-4">Vos incidents clôturés</h1>
+        </div>
+        <div class="col-11 overflow-auto d-flex flex-column align-items-center h-75">
+            @foreach (TicketHistory ticket in Model.closeTicket)
+            {
+                <div class="col-12 col-xl-8 border border-1 border-dark bg-danger radius10 text-center d-flex align-items-center mb-1">
+                    <div class="col-9 d-flex justify-content-center align-items-center h-100">
+                        <p class="mb-0"><b>Ticket n°@ticket.TicketId</b> - MàJ le @ticket.StatusDate - Clôturé</p>
+                    </div>
+                    <div class="col-3 col-md-1 d-flex justify-content-center align-items-center py-1">
+                        <a class="btn btn-third-color third-color" asp-controller="TicketView" asp-action="TicketDetails" asp-route-id="@ticket.TicketId" role="button">></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <a asp-controller="CustomerDashboard" asp-action="Index" asp-route-id="@UserManager.GetUserId(User)" class="btn second-color radius10">Retour à l'accueil</a>
+    </div>
+</div>

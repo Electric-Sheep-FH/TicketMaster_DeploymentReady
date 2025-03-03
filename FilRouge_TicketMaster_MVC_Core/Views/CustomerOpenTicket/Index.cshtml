@@ -1,0 +1,130 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model FilRouge_TicketMaster_MVC_Core.ViewModels.OpenTicketFromCustomerViewModel
+@inject UserManager<IdentityUser> UserManager;
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 79vh;">
+    <div class="row justify-content-center w-100">
+        <div class="second-color radius25 text-white col-12 d-flex align-items-center justify-content-center flex-column py-1">
+            <h1 class="my-xl-5 text-center">Informer votre technicien d'un incident</h1>
+            <form id="ticketForm" asp-action="Index" class="p-3 w-100">
+                <div class="row mb-3">
+                    <div class="col-12 col-md-4">
+                        <label asp-for="SoftwareId" class="visually-hidden">Software</label>
+                        <select asp-for="SoftwareId" class="form-select">
+                            @* <option selected>Logiciel concerné...</option> *@
+                            @foreach (var software in Model.Softwares)
+                            {
+                                <option value="@software.Id">@software.SoftwareName</option>
+                            }
+                        </select>
+                        <input type="hidden" asp-for="Softwares" />
+                    </div>
+                    <div class="col-12 col-md-4 mt-3 mt-md-0">
+                        <label asp-for="MalfunctionId" class="visually-hidden">ProblemCat</label>
+                        <select asp-for="MalfunctionId" class="form-select">
+                            <option selected>Type de problème...</option>
+                            @foreach (var malfunction in Model.Malfunction)
+                            {
+                                <option value="@malfunction.Id">@malfunction.CategoryName</option>
+                            }
+                        </select>
+                        <input type="hidden" asp-for="Malfunction" />
+                    </div>
+                    <div class="col-12 col-md-4 mt-3 mt-md-0">
+                        <label asp-for="CanalResponse" class="visually-hidden">Contact</label>
+                        <select asp-for="CanalResponse" class="form-select">
+                            <option selected>Canal de réponse souhaité...</option>
+                            <option value="1">Mail</option>
+                            <option value="2">Téléphone</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-black-50 mt-2 mb-2">
+                    <div class="col-12">
+                        <textarea rows="8" asp-for="Observation" class="form-control mt-xl-3" placeholder="Décrire votre problème ici..."></textarea>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-1">
+                    <div class="col-12 text-center">
+                        <button type="button" id="submitButton" class="btn border border-1 shadow border-dark fourth-color radius10 w-50 my-xl-2">Envoyer</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <a class="mt-4 btn border border-1 shadow border-dark fourth-color radius10 w-50" asp-area="" asp-controller="CustomerDashboard" asp-action="Index" asp-route-id="@UserManager.GetUserId(User)">
+            Retour à l'accueil
+        </a>
+    </div>
+
+    <!-- Modal for confirmation -->
+    <div class="modal fade" id="modalTest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content first-color border-1 border-fourth-color">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white" id="exampleModalLongTitle">Confirmation</h5>
+                </div>
+                <div class="modal-body text-white">
+                    Êtes-vous sûr de vouloir envoyer cette demande ? Nous vous répondrons dans les meilleurs délais, et vous pourrez consulter à tout moment votre demande dans votre espace client.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeConfirmModal">Annuler</button>
+                    <button type="button" class="btn second-color" id="confirmSubmit">Confirmer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for error -->
+    <div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="modalErrorTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content first-color border-1 border-fourth-color">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white" id="modalErrorTitle">Erreur</h5>
+                </div>
+                <div class="modal-body text-white">
+                    Veuillez sélectionner un type de problème et remplir le champ d'observation.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeErrorModal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#submitButton').click(function () {
+                var problemCat = $('select[name="MalfunctionId"]').val();
+                var observation = $('textarea[name="Observation"]').val().trim();
+
+                if (problemCat === "Type de problème..." || observation === "") {
+                    $('#modalError').modal('show');
+                } else {
+                    $('#modalTest').modal('show');
+                }
+            });
+
+            $('#confirmSubmit').click(function () {
+                $('#ticketForm').submit();
+            });
+
+            $('#closeErrorModal').click(function () {
+                $('#modalError').modal('hide');
+            });
+
+            $('#closeConfirmModal').click(function () {
+                $('#modalTest').modal('hide');
+            });
+
+            $('#modalError').on('hidden.bs.modal', function () {
+                $('body').addClass('modal-open');
+            });
+        });
+    </script>
+}

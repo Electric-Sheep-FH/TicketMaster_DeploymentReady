@@ -1,0 +1,199 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager;
+@model FilRouge_TicketMaster_MVC_Core.ViewModels.DetailsCustomerTicketViewModel
+
+@{
+    ViewBag.Title = "Ticket Details";
+}
+
+<div class="container-fluid">
+    <div class="text-center">
+        <button class="btn third-color d-md-none mb-1 fw-bold" id="toggleButton">Ticket n°@Model.IdTicket <i class="bi bi-chevron-down"></i></button>
+    </div>
+    <div class="col-12 p-2 fourth-color rounded-3 toggle-content">
+        <h1 class="text-center mb-1 d-none d-md-block">Ticket n°@Model.IdTicket</h1>
+        <div class="row">
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Nom</div>
+                        <div class="col-8">@Model.Person.Lastname</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Prénom</div>
+                        <div class="col-8">@Model.Person.Firstname</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Née le</div>
+                        <div class="col-7">@(Model.Person.BirthdayDate?.ToString("dd/MM/yyyy") ?? "N/A")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Adresse</div>
+                        <div class="col-8">@Model.Person.Address</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Ville</div>
+                        <div class="col-8">@Model.Person.City</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Code postal</div>
+                        <div class="col-8">@Model.Person.PostalCode</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">N° Fixe</div>
+                        <div class="col-8">@Model.Person.PhoneNumber</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">N° Portable</div>
+                        <div class="col-8">@Model.Person.MobilePhone</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Mail</div>
+                        <div class="col-8">@Model.Person.Email</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6 overflow-auto fourth-color radius10 p-4 mt-3" style="height: 405px">
+            @foreach (var th in Model.TicketHistory)
+            {
+                if (th.Observation == "Transfer to tech" || th.Observation.Contains("***SYS-notif***"))
+                {
+                    continue;
+                }
+                else if (th.UserId == UserManager.GetUserId(User))
+                {
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="third-color text-end radius10 p-1 w-50 col-6">
+                            <p>@th.Observation</p>
+                            <p class="fst-italic fw-light">Vous - le @th.StatusDate?.ToString("dd/MM/yyyy à HH\'h\'mm")</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="second-color radius10 p-1 w-50">
+                        <p>@th.Observation</p>
+                        <p class="fst-italic fw-light">Votre conseiller - le @th.StatusDate?.ToString("dd/MM/yyyy à HH\'h\'mm")</p>
+                    </div>
+                }
+                <br />
+            }
+        </div>
+        <div class="col-12 col-lg-6 mt-3">
+            <h4 class="text-white text-center">En cas de complèment d'information, veuillez saisir votre message ci-après</h4>
+            <form id="SendingForm" asp-action="TicketDetails" method="post">
+                <input type="hidden" asp-for="IdTicket" />
+                <div class="form-group">
+                    <textarea asp-for="Observation" class="form-control col-12 radius10 p-1" rows="7" placeholder="Veuillez saisir votre message ici..."></textarea>
+                    <span asp-validation-for="Observation" class="text-danger"></span>
+                    <br />
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ConfirmSendingMessage">Envoyer</button>
+                </div>
+            </form>
+            <br />
+            <h5 class="text-white">Votre problème est résolu ? Vous pouvez clôturé votre ticket avec ce bouton :</h5>
+            <form id="ClosingForm" asp-action="CloseTicket" method="post">
+                <input type="hidden" name="IdTicket" value="@Model.IdTicket" />
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ConfirmClosingTicket">Clôturé le ticket</button>
+            </form>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <a asp-controller="CustomerDashboard" asp-action="OnGoinIncident" class="btn second-color radius10">Retour à la liste des tickets</a>
+    </div>
+</div>
+
+<div class="modal fade" id="ConfirmSendingMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content first-color border-1 border-fourth-color">
+            <div class="modal-header">
+                <h5 class="modal-title text-white-50" id="exampleModalLongTitle">Confirmation</h5>
+            </div>
+            <div class="modal-body text-white">
+                Confirmez-vous l'envoi de ce message ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn second-color" id="SubmitMessageConfirm">Confirmer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ConfirmClosingTicket" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content first-color border-1 border-fourth-color">
+            <div class="modal-header">
+                <h5 class="modal-title text-white-50" id="exampleModalLongTitle">Confirmation</h5>
+            </div>
+            <div class="modal-body text-white">
+                Êtes-vous sûr de vouloir clôturé cette demande ? Vous pourrez toujours la consulter dans votre historique.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn second-color" id="ClosingTicketConfirm">Confirmer</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#SubmitMessageConfirm').click(function () {
+                $('#SendingForm').submit();
+            });
+            $('#ClosingTicketConfirm').click(function () {
+                $('#ClosingForm').submit();
+            });
+            $('#toggleButton').click(function () {
+                $('.toggle-content').toggle();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,125 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager;
+@model FilRouge_TicketMaster_MVC_Core.ViewModels.DetailsCustomerTicketViewModel
+
+@{
+    ViewBag.Title = "Ticket Details";
+}
+
+<div class="container-fluid">
+    <div class="col-12 p-2 fourth-color rounded-3">
+        <h1 class="text-center mb-4 fw-bold">Ticket n°@Model.IdTicket</h1>
+        <div class="row">
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Nom</div>
+                        <div class="col-8">@Model.Person.Lastname</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Prénom</div>
+                        <div class="col-8">@Model.Person.Firstname</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Née le</div>
+                        <div class="col-7">@(Model.Person.BirthdayDate?.ToString("dd/MM/yyyy") ?? "N/A")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Adresse</div>
+                        <div class="col-8">@Model.Person.Address</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Ville</div>
+                        <div class="col-8">@Model.Person.City</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Code postal</div>
+                        <div class="col-8">@Model.Person.PostalCode</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">N° Fixe</div>
+                        <div class="col-8">@Model.Person.PhoneNumber</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">N° Portable</div>
+                        <div class="col-8">@Model.Person.MobilePhone</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="p-3 third-color rounded-3 h-100">
+                    <div class="row">
+                        <div class="col-4 border-end fw-bold">Mail</div>
+                        <div class="col-8">@Model.Person.Email</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="col-12 col-xl-8 overflow-auto fourth-color radius10 p-4 mt-3" style="height: 450px">
+            @foreach (var th in Model.TicketHistory)
+            {
+                if (th.Observation == "Transfer to tech" || th.Observation.Contains("***SYS-notif***"))
+                {
+                    continue;
+                }
+                else if (th.UserId == UserManager.GetUserId(User))
+                {
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="third-color text-end radius10 p-1 w-50 col-6">
+                            <p>@th.Observation</p>
+                            <p class="fst-italic">Vous - le @th.StatusDate?.ToString("dd/MM/yyyy à HH\'h\'mm")</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="second-color radius10 p-1 w-50">
+                        <p>@th.Observation</p>
+                        <p class="fst-italic">Votre conseiller - le @th.StatusDate?.ToString("dd/MM/yyyy à HH\'h\'mm")</p>
+                    </div>
+                }
+                <br />
+            }
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <a asp-controller="CustomerDashboard" asp-action="OnGoinIncident" class="btn second-color radius10">Retour à la liste des tickets</a>
+    </div>
+</div>

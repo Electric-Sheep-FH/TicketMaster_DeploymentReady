@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilRouge_TicketMaster_MVC_Core", "FilRouge_TicketMaster_MVC_Core.csproj", "{858D9941-B2D5-4A48-9770-3F21D4F580FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilRouge_TicketMaster_MVC_Core.test", "..\FilRouge_TicketMaster_MVC_Core.test\FilRouge_TicketMaster_MVC_Core.test.csproj", "{AC06D2C6-9CB8-48A3-8489-394F7A2CBDB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{858D9941-B2D5-4A48-9770-3F21D4F580FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{858D9941-B2D5-4A48-9770-3F21D4F580FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{858D9941-B2D5-4A48-9770-3F21D4F580FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{858D9941-B2D5-4A48-9770-3F21D4F580FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC06D2C6-9CB8-48A3-8489-394F7A2CBDB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC06D2C6-9CB8-48A3-8489-394F7A2CBDB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC06D2C6-9CB8-48A3-8489-394F7A2CBDB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC06D2C6-9CB8-48A3-8489-394F7A2CBDB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A19345C2-3DE4-44F6-82DE-3598AC080EB8}
+	EndGlobalSection
+EndGlobal

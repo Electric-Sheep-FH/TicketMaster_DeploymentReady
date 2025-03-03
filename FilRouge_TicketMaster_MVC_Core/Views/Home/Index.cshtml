@@ -1,0 +1,23 @@
+﻿@model FilRouge_TicketMaster_MVC_Core.ViewModels.HomeLoginViewModel
+@{
+    ViewData["Title"] = "Accueil";
+}
+
+<div class="container">
+    <div class="row justify-content-center text-center">
+        <div>
+            <img src="./Img/Ticket_Master-Logo.png" class="col-8 col-md-4" alt="Image" />
+        </div>
+        <div class="col-11 col-lg-5 second-color radius25 text-black">
+            <h1 class="my-4 fw-normal">Bienvenue</h1>
+            <form asp-action="Index">
+                <input type="email" asp-for="Mail" name="mail" placeholder="Email..." class="col-8 mb-3 rounded-pill"><br />
+                <input type="password" asp-for="Password" name="password" placeholder="Mot de passe..." class="col-8 mb-3 rounded-pill"><br />
+                <button type="submit" class="btn btn-light mb-3 fourth-color rounded-pill">Se connecter</button>
+            </form>
+            <div class="">
+                <button type="submit" class="btn mb-3 rounded-pill fw-light">Mot de passe oublié...</button>
+            </div>
+        </div>
+    </div>
+</div>

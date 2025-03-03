@@ -1,0 +1,217 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager;
+@model FilRouge_TicketMaster_MVC_Core.ViewModels.TicketDetailsForUserViewModel
+
+@{
+    ViewBag.Title = "Ticket Details";
+}
+
+<div class="row align-items-center" style="min-height: calc(100vh - 148px);">
+    <div class="row fourth-color radius25">
+        <h3 class="text-center fw-bold">Ticket n°@Model.IdTicket</h3>
+        <div class="row">
+            <div class="m-1 col radius10 third-color">
+                <div class="row">
+                    <div class="col-3 border-end fw-bolder">
+                        Nom
+                    </div>
+                    <div class="col-9">
+                        @Model.Person.Lastname
+                    </div>
+                </div>
+            </div>
+            <div class="m-1 col radius10 third-color">
+                <div class="row">
+                    <div class="col-3 border-end fw-bolder">
+                        Prénom
+                    </div>
+                    <div class="col-9">
+                        @Model.Person.Firstname
+                    </div>
+                </div>
+            </div>
+            <div class="m-1 col radius10 third-color">
+                <div class="row">
+                    <div class="col-5 border-end fw-bolder">
+                        Date de naissance
+                    </div>
+                    <div class="col-7">
+                        @(Model.Person.BirthdayDate?.ToString("dd/MM/yyyy") ?? "N/A")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="m-1 col radius10 third-color">
+                <div class="row">
+                    <div class="col-3 border-end fw-bolder">
+                        Adresse
+                    </div>
+                    <div class="col-9">
+                        @Model.Person.Address
+                    </div>
+                </div>
+            </div>
+            <div class="m-1 col radius10 third-color">
+                <div class="row">
+                    <div class="col-3 border-end fw-bolder">
+                        Ville
+                    </div>
+                    <div class="col-9">
+                        @Model.Person.City
+                    </div>
+                </div>
+            </div>
+            <div class="m-1 col radius10 third-color">
+                <div class="row">
+                    <div class="col-4 border-end fw-bolder">
+                        Code postal
+                    </div>
+                    <div class="col-8">
+                        @Model.Person.PostalCode
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="m-1 col radius10 third-color">
+                <div class="row">
+                    <div class="col-3 border-end fw-bolder">
+                        N° Fixe
+                    </div>
+                    <div class="col-9">
+                        @Model.Person.PhoneNumber
+                    </div>
+                </div>
+            </div>
+            <div class="m-1 col radius10 third-color">
+                <div class="row">
+                    <div class="col-4 border-end fw-bolder">
+                        N° Portable
+                    </div>
+                    <div class="col-8">
+                        @Model.Person.MobilePhone
+                    </div>
+                </div>
+            </div>
+            <div class="m-1 col radius10 third-color">
+                <div class="row">
+                    <div class="col-4 border-end fw-bolder">
+                        Mail
+                    </div>
+                    <div class="col-8">
+                        @Model.Person.Email
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a class="btn second-color m-2 radius25">Fiche client</a>
+        </div>
+
+    </div>
+    <div class="col-7 overflow-auto fourth-color radius10 p-4" style="height:500px">
+        @foreach (var th in Model.TicketHistories)
+        {
+            if (th.Observation == "Transfer to tech" || th.Observation.Contains("***SYS-notif***"))
+            {
+                continue;
+            }
+            else if (th.UserId == UserManager.GetUserId(User))
+            {
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="third-color text-end radius10 p-1 w-50 col-6">
+                        <p>@th.Observation</p>
+                        <p class="fst-italic">Vous - le @th.StatusDate?.ToString("dd/MM/yyyy à HH\'h\'mm")</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="second-color radius10 p-1 w-50">
+                    <p>@th.Observation</p>
+                    <p class="fst-italic">Client - le @th.StatusDate?.ToString("dd/MM/yyyy à HH\'h\'mm")</p>
+                </div>
+            }
+            <br />
+        }
+    </div>
+    <div class="col-5">
+        <h4 class="text-white">En cas de complèment d'information, veuillez saisir votre message ci-après</h4>
+        <form asp-action="TicketDetailsForUser" method="post">
+            <input type="hidden" asp-for="IdTicket" />
+            <div class="form-group">
+                <textarea asp-for="Observation" class="form-control col-12 radius10 p-1" rows="10" placeholder="Veuillez saisir votre message ici..."></textarea>
+                <span asp-validation-for="Observation" class="text-danger"></span>
+                <div class="row">
+                    <div class="col form-group">
+                        <label asp-for="EmergencyStatusId" class="form-label text-white">Urgence</label>
+                        <select asp-for="EmergencyStatusId" class="form-select">
+                            <option value="" selected>Sélectionner une urgence</option>
+                            @foreach (EmergencyStatus status in Model.EmergencyStatuses)
+                            {
+                                if(status.Id == Model.EmergencyStatusId)
+                                {
+                                    <option value="@status.Id" selected>@status.Name</option>
+                                } else
+                                {
+                                    <option value="@status.Id">@status.Name</option>
+                                }
+                                
+                            }
+                        </select>
+                        <span asp-validation-for="EmergencyStatusId" class="text-danger"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label asp-for="MalfunctionId" class="form-label text-white">Catégorie</label>
+                        <select asp-for="MalfunctionId" class="form-select">
+                            <option value="" selected>Sélectionner une catégorie</option>
+                            @foreach (Malfunction malfunction in Model.Malfunctions)
+                            {
+                                if (malfunction.Id == Model.EmergencyStatusId)
+                                {
+                                    <option value="@malfunction.Id" selected>@malfunction.CategoryName</option>
+                                }
+                                else
+                                {
+                                    <option value="@malfunction.Id">@malfunction.CategoryName</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="MalfunctionId" class="text-danger"></span>
+                    </div>
+                    <div class="col form-group">
+                        <label asp-for="TicketStateId" class="form-label text-white">Etat</label>
+                        <select asp-for="TicketStateId" class="form-select">
+                            <option value="">Sélectionner une catégorie</option>
+                            @foreach (TicketState ticketState in Model.States)
+                            {
+                                if (ticketState.Id == Model.EmergencyStatusId)
+                                {
+                                    <option value="@ticketState.Id" selected>@ticketState.name</option>
+                                }
+                                else
+                                {
+                                    <option value="@ticketState.Id">@ticketState.name</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="TicketStateId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+</div>

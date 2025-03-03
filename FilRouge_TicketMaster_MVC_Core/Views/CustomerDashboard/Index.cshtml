@@ -1,0 +1,13 @@
+﻿@model FilRouge_TicketMaster_MVC_Core.Models.Person;
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="text-white">Bienvenue dans votre espace client, M./Mme. @Model.Lastname</h1>
+        <div class="d-flex flex-column align-items-center mt-5">
+            <a class="col-12 col-lg-3 btn fourth-color mb-5" asp-controller="CustomerDashboard" asp-action="OnGoinIncident">Vos incidents</a>
+            <a class="col-12 col-lg-3 btn fourth-color mb-5" asp-controller="CustomerOpenTicket" asp-action="Index">Contacter un technicien</a>
+            <button class="col-12 col-lg-3 btn fourth-color mb-5">Consulter la documentation</button>
+            <button class="col-12 col-lg-3 btn fourth-color mb-5">F.A.Q.</button>
+        </div>
+    </div>
+</div>

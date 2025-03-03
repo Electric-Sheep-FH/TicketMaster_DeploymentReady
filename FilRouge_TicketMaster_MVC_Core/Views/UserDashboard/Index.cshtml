@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager;
+@model FilRouge_TicketMaster_MVC_Core.ViewModels.UserDashboardViewModel
+
+<body class="first-color">
+    <div class="container text-center">
+        <div class="row justify-content-evenly radius25">
+            <div class="p-3 col-4 second-color radius25">
+                <div class="h-50 p-2 justify-content-center first-color radius25">
+                    <div class="m-2 row second-color justify-content-center radius25">
+                        MESSAGE EN ATTENTE
+                    </div>
+                    <div class="h-75 overflow-auto">
+                        @{
+                            if(Model?.lastTickets != null && Model?.TicketCustomerName != null)
+                            {
+                                foreach (TicketHistory th in Model.lastTickets)
+                                {
+                                    if (th.UserId != UserManager.GetUserId(User))
+                                    {
+                                        <div class="row align-items-center m-2 ms-4 me-4 third-color radius25">
+                                            @if (Model.TicketCustomerName.ContainsKey(th.TicketId))
+                                            {
+                                                <div class="col-10">@th.TicketId - @Model.TicketCustomerName[th.TicketId] - @th.StatusDate</div>
+                                                <a asp-controller="TicketView" asp-action="TicketDetailsForUser" asp-route-id="@th.TicketId" class="col-auto border border-1 m-1 btn second-color" style="border-radius:100px" type="submit">></a>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="h-50 mt-2 p-2 justify-content-center first-color radius25">
+                    <div class="m-2 row second-color justify-content-center radius25">
+                        EN COURS
+                    </div>
+                    <div class="h-75 overflow-auto">
+                        @{
+                            if (Model?.lastTickets != null && Model?.TicketCustomerName != null)
+                            {
+                                foreach (TicketHistory th in Model.lastTickets)
+                                {
+                                    if (th.UserId == UserManager.GetUserId(User))
+                                    {
+                                        <div class="row align-items-center m-2 ms-4 me-4 third-color radius25">
+                                            @if (Model.TicketCustomerName.ContainsKey(th.TicketId))
+                                            {
+                                                <div class="col-10">@th.TicketId - @Model.TicketCustomerName[th.TicketId] - @th.StatusDate</div>
+                                                <a asp-controller="TicketView" asp-action="TicketDetailsForUser" asp-route-id="@th.TicketId" class="col-auto border border-1 m-1 btn second-color" style="border-radius:100px" type="submit">></a>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 col-4 second-color radius25">
+                RECHERCHE CLIENT
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label"></label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="ID CLIENT...">
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label"></label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="TICKET N°...">
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label"></label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="NOM...">
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label"></label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="PRENOM...">
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label"></label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="CODE POSTAL...">
+                </div>
+                <button class="btn btn-primary radius10" type="submit">RECHERCHE</button>
+            </div>
+        </div>
+    </div>
+</body>
