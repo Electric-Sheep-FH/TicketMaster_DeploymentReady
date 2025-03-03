@@ -10,7 +10,7 @@ services:
       - migrate
     environment:
       # Exemple de chaîne de connexion pour MySQL :
-      - ConnectionStrings__WebAppDbContextConnection=Server=db;Database=filrouge_final;User=root;Password=;SslMode=none;
+      - ConnectionStrings__WebAppDbContextConnection=Server=ticketmaster_deploymentready.railway.internal;Database=filrouge_final;User=root;Password=;SslMode=none;
       - ASPNETCORE_URLS=http://+:80
 
   db:
@@ -48,7 +48,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     environment:
-      - PMA_HOST=db
+      - PMA_HOST=ticketmaster_deploymentready.railway.internal
       - PMA_USER=root
       - PMA_PASSWORD=
     ports:
