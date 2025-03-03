@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FilRouge_TicketMaster_MVC_Core.test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b24f82ae20a6d1c27b40671034a48e27d9eea4d4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+71048c1f51f745c9ef56dad045d39f7e574175f5")]
 [assembly: System.Reflection.AssemblyProductAttribute("FilRouge_TicketMaster_MVC_Core.test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FilRouge_TicketMaster_MVC_Core.test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
