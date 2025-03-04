@@ -40,5 +40,5 @@ COPY --from=build-env /app/out .
 ENV ASPNETCORE_URLS=http://+:${PORT}
 
 # Exposer le port (pour les tests locaux, Railway utilisera sa propre gestion)
-# EXPOSE 80
+EXPOSE 80
 ENTRYPOINT ["dotnet", "FilRouge_TicketMaster_MVC_Core.dll"]
