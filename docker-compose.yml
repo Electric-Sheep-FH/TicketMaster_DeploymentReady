@@ -2,7 +2,7 @@ services:
   web:
     build:
       context: . # 🚀 Assure que Docker prend la racine (TicketMaster_Docker)
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     ports:
       - "5000:80" # Mappe le port 80 du conteneur au port 5000 de l'hôte
     depends_on:
@@ -46,7 +46,7 @@ services:
   tests:
     build:
       context: . # 🚀 Utiliser la racine
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     command: dotnet test --logger trx --results-directory TestResults
     volumes:
       - .:/app
