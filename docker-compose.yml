@@ -56,7 +56,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     environment:
-      - PMA_HOST=ticketmaster_deploymentready.railway.internal
+      - PMA_HOST=db
       - PMA_USER=root
       - PMA_PASSWORD=
     ports:

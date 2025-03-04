@@ -39,11 +39,12 @@ namespace FilRouge_TicketMaster_MVC_Core
             //$added from th�o tuto
             app.MapRazorPages();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
