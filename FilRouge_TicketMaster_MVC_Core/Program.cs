@@ -19,7 +19,14 @@ namespace FilRouge_TicketMaster_MVC_Core
             var connectionString = builder.Configuration.GetConnectionString("WebAppDbContextConnection") ?? throw new InvalidOperationException("Connection string'WebAppDbContextConnection' not found.");
 
             //builder.Services.AddDbContext<TicketMasterDatabaseContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-            builder.Services.AddDbContext<TicketMasterDatabaseContext>(options => options.UseMySql(connectionString, ServerVersion.Parse("8.0.0-mysql")));
+            //builder.Services.AddDbContext<TicketMasterDatabaseContext>(options => options.UseMySql(connectionString, ServerVersion.Parse("8.0.0-mysql")));
+            builder.Services.AddDbContext<TicketMasterDatabaseContext>(options => options.UseMySql(connectionString,
+                new MySqlServerVersion(new Version(8, 0, 0)),
+                mySqlOptions => mySqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorNumbersToAdd: null)
+            ));
 
             //$added automatically after identity migration
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
