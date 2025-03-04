@@ -34,7 +34,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
   migrate:
     image: mcr.microsoft.com/dotnet/sdk:8.0
     working_dir: /app/FilRouge_TicketMaster_MVC_Core
@@ -43,26 +42,26 @@ services:
       - .:/app
     depends_on:
       - db
-  tests:
-    build:
-      context: . # 🚀 Utiliser la racine
-      dockerfile: dockerfile
-    command: dotnet test --logger trx --results-directory TestResults
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    environment:
-      - PMA_HOST=db
-      - PMA_USER=root
-      - PMA_PASSWORD=
-    ports:
-      - "8081:80"
-    depends_on:
-      - db
+  # tests:
+  #   build:
+  #     context: . # 🚀 Utiliser la racine
+  #     dockerfile: dockerfile
+  #   command: dotnet test --logger trx --results-directory TestResults
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - db
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   restart: always
+  #   environment:
+  #     - PMA_HOST=db
+  #     - PMA_USER=root
+  #     - PMA_PASSWORD=
+  #   ports:
+  #     - "8081:80"
+  #   depends_on:
+  #     - db
 
 volumes:
   db_data:
