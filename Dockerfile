@@ -36,6 +36,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-# Exposer le port et exécuter l’application
+# Configurer l'application pour écouter sur le port fourni par Railway via la variable d'environnement PORT.
+ENV ASPNETCORE_URLS=http://+:${PORT}
+
+# Exposer le port (pour les tests locaux, Railway utilisera sa propre gestion)
 EXPOSE 80
 ENTRYPOINT ["dotnet", "FilRouge_TicketMaster_MVC_Core.dll"]

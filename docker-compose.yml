@@ -10,8 +10,9 @@ services:
       - migrate
     environment:
       # Exemple de chaîne de connexion pour MySQL :
+      - PORT=80
+      - ASPNETCORE_URLS=http://+:${PORT}
       - ConnectionStrings__WebAppDbContextConnection=Server=ticketmaster_deploymentready.railway.internal;Database=filrouge_final;User=root;Password=;SslMode=none;
-      - ASPNETCORE_URLS=http://+:80
 
   db:
     image: mysql:8.0
