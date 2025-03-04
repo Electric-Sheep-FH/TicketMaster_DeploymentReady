@@ -6,8 +6,10 @@ services:
     ports:
       - "5000:80" # Mappe le port 80 du conteneur au port 5000 de l'hôte
     depends_on:
-      - db
-      - migrate
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_started
     environment:
       # Exemple de chaîne de connexion pour MySQL :
       - PORT=80
@@ -27,6 +29,11 @@ services:
       - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   migrate:
     image: mcr.microsoft.com/dotnet/sdk:8.0
