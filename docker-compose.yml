@@ -52,17 +52,17 @@ services:
       - .:/app
     depends_on:
       - db
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    environment:
-      - PMA_HOST=db
-      - PMA_USER=root
-      - PMA_PASSWORD=
-    ports:
-      - "8081:80"
-    depends_on:
-      - db
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   restart: always
+  #   environment:
+  #     - PMA_HOST=db
+  #     - PMA_USER=root
+  #     - PMA_PASSWORD=
+  #   ports:
+  #     - "8081:80"
+  #   depends_on:
+  #     - db
 
 volumes:
   db_data:
