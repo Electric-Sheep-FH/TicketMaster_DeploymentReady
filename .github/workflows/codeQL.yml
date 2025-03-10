@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Build project
+        run: dotnet build --configuration Release ./FilRouge_TicketMaster_MVC_Core/FilRouge_TicketMaster_MVC_Core.sln
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
