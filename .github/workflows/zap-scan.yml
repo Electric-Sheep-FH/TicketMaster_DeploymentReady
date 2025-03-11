@@ -38,18 +38,21 @@ jobs:
           # en pointant sur localhost:5000
           # --network host : sous GitHub Actions, ça permet à ZAP d'accéder à localhost.
           # On monte "/zap/wrk" vers le dossier "zap-reports" du repo
+          mkdir zap-wrk
+          chmod 777 zap-wrk  # pour être sûr que le conteneur root puisse écrire
           docker run --rm --network host --name zap-scan \
-          zaproxy/zap-stable \
-          zap-baseline.py \
-          -t http://localhost:5000 \
-          -r /tmp/zap_report.html \
-          -z "--autooff"
+            --user 0:0 \
+            -v ${{ github.workspace }}/zap-wrk:/zap/wrk \
+            zaproxy/zap-stable \
+            zap-baseline.py \
+              -t http://localhost:5000 \
+              -r zap_report.html
           # -t : target
           # -r : nom du rapport (généré dans le conteneur, on le récupérera juste après si on le copie)
           
           # ⚠ Pour récupérer le rapport, on peut soit le faire via volume, 
           #    soit le copier du conteneur. Par exemple :
-          docker cp zap-scan:/tmp/zap_report.html zap_report.html
+          #docker cp zap-scan:/tmp/zap_report.html zap_report.html
           # Ici, on copie depuis le dernier conteneur lancé (-lq => last container ID).
           # Si tu préfères un volume, configure --volume ...
           # À défaut, tu peux aussi faire un "docker run -v ${{ github.workspace }}:/zapfiles ..."
