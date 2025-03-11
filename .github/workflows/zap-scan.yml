@@ -37,7 +37,7 @@ jobs:
           # On exécute l'image officielle 'owasp/zap2docker' 
           # en pointant sur localhost:5000
           # --network host : sous GitHub Actions, ça permet à ZAP d'accéder à localhost.
-          docker run --rm --network host zaproxy/zap2docker \
+          docker run --rm --network host zaproxy/zap-stable \
           zap-baseline.py \
           -t http://localhost:5000 \
           -r zap_report.html
