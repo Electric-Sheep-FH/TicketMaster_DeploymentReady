@@ -19,7 +19,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Build and launch app via docker-compose
-        run: docker-compose up -d --build
+        run: docker compose up -d --build
         # Cette commande va :
         # 1) Construire l'image à partir de 'dockerfile' pour le service 'web'
         # 2) Lancer les services : web, db, migrate (si dépendances), phpmyadmin, etc.
@@ -60,4 +60,4 @@ jobs:
 
       - name: Shutdown containers
         if: always()
-        run: docker-compose down
+        run: docker compose down
