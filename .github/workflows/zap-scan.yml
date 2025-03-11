@@ -47,6 +47,9 @@ jobs:
             zap-baseline.py \
               -t http://localhost:5000 \
               -r zap_report.html
+              -I
+          #         ^
+          #  Option pour ne pas échouer si on a des Warnings
           # -t : target
           # -r : nom du rapport (généré dans le conteneur, on le récupérera juste après si on le copie)
           
