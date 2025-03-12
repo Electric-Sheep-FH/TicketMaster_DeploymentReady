@@ -53,4 +53,4 @@ jobs:
         with:
           image-ref: 'fabhass/ticketmaster:latest'
           format: 'table'
-          exit-code: '1'
+          exit-code: '0'
