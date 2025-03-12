@@ -13,16 +13,41 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+
     - name: Restore dependencies
       working-directory: ./FilRouge_TicketMaster_MVC_Core
       run: dotnet restore
+
     - name: Build
       working-directory: ./FilRouge_TicketMaster_MVC_Core
       run: dotnet build --no-restore
+
     - name: Test
       working-directory: ./FilRouge_TicketMaster_MVC_Core
       run: dotnet test --no-build --verbosity normal
+
+    - name: Publish app
+      working-directory: ./FilRouge_TicketMaster_MVC_Core
+      run: dotnet publish -c Release -o publish
+
+    - name: Build & Push Docker Image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./FilRouge_TicketMaster_MVC_Core/publish
+        push: true
+        tags: user/ticketmaster:latest
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Scan Docker Image (Trivy)
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'user/ticketmaster:latest'
+        format: 'table'
+        exit-code: '1'
