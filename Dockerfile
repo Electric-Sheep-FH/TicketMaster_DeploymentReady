@@ -36,8 +36,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-# Configurer l'application pour écouter sur le port fourni par Railway via la variable d'environnement PORT.
-ENV ASPNETCORE_URLS=http://+:${PORT}
+# # Configurer l'application pour écouter sur le port fourni par Railway via la variable d'environnement PORT.
+# ENV ASPNETCORE_URLS=http://+:${PORT}
 
 # Exposer le port (pour les tests locaux, Railway utilisera sa propre gestion)
 EXPOSE 80
