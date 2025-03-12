@@ -46,11 +46,11 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: user/ticketmaster:latest
+          tags: fabhass/ticketmaster:latest
 
       - name: Scanner l'image Docker (Trivy)
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'user/ticketmaster:latest'
+          image-ref: 'fabhass/ticketmaster:latest'
           format: 'table'
           exit-code: '1'
