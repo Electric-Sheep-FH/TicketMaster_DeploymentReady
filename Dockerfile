@@ -2,12 +2,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
-# 1️⃣ Copier la solution (.sln) dans /app
-COPY FilRouge_TicketMaster_MVC_Core/FilRouge_TicketMaster_MVC_Core.sln /app/
+# # 1️⃣ Copier la solution (.sln) dans /app
+# COPY FilRouge_TicketMaster_MVC_Core/FilRouge_TicketMaster_MVC_Core.sln /app/
 
-# 2️⃣ Copier les fichiers projet (.csproj) dans leurs dossiers respectifs
-COPY FilRouge_TicketMaster_MVC_Core/*.csproj /app/FilRouge_TicketMaster_MVC_Core/
-COPY FilRouge_TicketMaster_MVC_Core.test/*.csproj /app/FilRouge_TicketMaster_MVC_Core.test/
+# # 2️⃣ Copier les fichiers projet (.csproj) dans leurs dossiers respectifs
+# COPY FilRouge_TicketMaster_MVC_Core/*.csproj /app/FilRouge_TicketMaster_MVC_Core/
+# COPY FilRouge_TicketMaster_MVC_Core.test/*.csproj /app/FilRouge_TicketMaster_MVC_Core.test/
 
 # 3️⃣ Copier tout le code source (ATTENTION : Bien copier le contenu entier)
 COPY FilRouge_TicketMaster_MVC_Core/ /app/FilRouge_TicketMaster_MVC_Core/
