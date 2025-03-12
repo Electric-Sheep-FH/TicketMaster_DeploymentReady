@@ -12,34 +12,39 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      # (Facultatif) Installer .NET si tu souhaites exécuter des commandes dotnet
+      # Installer .NET
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
 
-      - name: Build and launch app via docker-compose
-        run: docker compose up -d --build
         # Cette commande va :
         # 1) Construire l'image à partir de 'dockerfile' pour le service 'web'
         # 2) Lancer les services : web, db, migrate (si dépendances), phpmyadmin, etc.
-        # Le service "web" écoute sur le port 80 interne, mappé sur le 5000 de l'hôte.
+      - name: Build and launch app via docker-compose
+        run: docker compose up -d --build
 
+        # pause pour laisser le temps à l'app de se mettre en route, puis on test l'url afin de savoir si c'est bien up ou on arrete l'execution du scan
       - name: Wait for the service to be ready
         run: |
-          # Petite pause pour laisser la base et l'app se mettre en route.
           sleep 20
-          # Test simple : si l'URL renvoie une 2xx/3xx, on suppose que c'est up
           curl --fail http://localhost:5000 || exit 1
-
+        
+        # Détails de la commande ci-dessous ligne par ligne :
+        # - On crée dossier zap-wrk dans le build Git Actions
+        # - On accorde les accès de lecture/ecriture/execution à tous (évite les problèmes pour générer le rapport)
+        # - On lance un conteneur docker nommé zap-scan
+        # - On force l'execution en tant que "root"
+        # - On monte un volume entre Git Actions et le conteneur docker
+        # - On utilise l'image docker "zaproxy/zap-stable"
+        # - On lance le script "baseline" qui permet un scan rapide. ("full-scan" aurait permis un scan plus agressif)
+        # - On spécifie l'url à scanner
+        # - On nomme le fichier de rapport de scan généré
+        # - On ajoute une option pour ne pas échoué le scan en cas de "warning", dans ce cas, une erreur est généré qu'en cas d'erreur de niveau "FAIL"
       - name: Run ZAP Baseline Scan
         run: |
-          # On exécute l'image officielle 'owasp/zap2docker' 
-          # en pointant sur localhost:5000
-          # --network host : sous GitHub Actions, ça permet à ZAP d'accéder à localhost.
-          # On monte "/zap/wrk" vers le dossier "zap-reports" du repo
           mkdir zap-wrk
-          chmod 777 zap-wrk  # pour être sûr que le conteneur root puisse écrire
+          chmod 777 zap-wrk
           docker run --rm --network host --name zap-scan \
             --user 0:0 \
             -v ${{ github.workspace }}/zap-wrk:/zap/wrk \
@@ -48,25 +53,15 @@ jobs:
               -t http://localhost:5000 \
               -r zap_report.html \
               -I
-          #         ^
-          #  Option pour ne pas échouer si on a des Warnings
-          # -t : target
-          # -r : nom du rapport (généré dans le conteneur, on le récupérera juste après si on le copie)
-          
-          # ⚠ Pour récupérer le rapport, on peut soit le faire via volume, 
-          #    soit le copier du conteneur. Par exemple :
-          #docker cp zap-scan:/tmp/zap_report.html zap_report.html
-          # Ici, on copie depuis le dernier conteneur lancé (-lq => last container ID).
-          # Si tu préfères un volume, configure --volume ...
-          # À défaut, tu peux aussi faire un "docker run -v ${{ github.workspace }}:/zapfiles ..."
-          # et générer directement le rapport dans "/zapfiles".
 
+        # On génére le rapport
       - name: Upload ZAP report
         uses: actions/upload-artifact@v4
         with:
           name: zap-report
           path: zap_report.html
 
+        # On ferme les container
       - name: Shutdown containers
         if: always()
         run: docker compose down
