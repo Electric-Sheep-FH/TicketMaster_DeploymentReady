@@ -10,16 +10,13 @@ COPY FilRouge_TicketMaster_MVC_Core.test/ /app/FilRouge_TicketMaster_MVC_Core.te
 RUN dotnet restore /app/FilRouge_TicketMaster_MVC_Core/FilRouge_TicketMaster_MVC_Core.sln
 
 # 4️⃣ Construit l'application
-WORKDIR /app/FilRouge_TicketMaster_MVC_Core
-RUN dotnet build -c Release --no-restore
+RUN dotnet build /app/FilRouge_TicketMaster_MVC_Core/FilRouge_TicketMaster_MVC_Core.csproj -c Release --no-restore
 
 # 5️⃣ Exécute les tests unitaires
-WORKDIR /app/FilRouge_TicketMaster_MVC_Core.test
-RUN dotnet test --no-build --logger trx --results-directory /app/TestResults
+RUN dotnet test /app/FilRouge_TicketMaster_MVC_Core.test/FilRouge_TicketMaster_MVC_Core.test.csproj --no-build --logger trx --results-directory /app/TestResults
 
 # 6️⃣ Publie l’application si tout a réussi
-WORKDIR /app/FilRouge_TicketMaster_MVC_Core
-RUN dotnet publish -c Release -o /app/out
+RUN dotnet publish /app/FilRouge_TicketMaster_MVC_Core/FilRouge_TicketMaster_MVC_Core.csproj -c Release -o /app/out
 
 # Étape 2 : Exécution
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
