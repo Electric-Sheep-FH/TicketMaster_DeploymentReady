@@ -24,11 +24,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `aspnetroleclaims`
+-- Structure de la table `AspNetRoleClaims`
 --
 
-DROP TABLE IF EXISTS `aspnetroleclaims`;
-CREATE TABLE IF NOT EXISTS `aspnetroleclaims` (
+DROP TABLE IF EXISTS `AspNetRoleClaims`;
+CREATE TABLE IF NOT EXISTS `AspNetRoleClaims` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `RoleId` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ClaimType` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
@@ -40,11 +40,11 @@ CREATE TABLE IF NOT EXISTS `aspnetroleclaims` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `aspnetroles`
+-- Structure de la table `AspNetRoles`
 --
 
-DROP TABLE IF EXISTS `aspnetroles`;
-CREATE TABLE IF NOT EXISTS `aspnetroles` (
+DROP TABLE IF EXISTS `AspNetRoles`;
+CREATE TABLE IF NOT EXISTS `AspNetRoles` (
   `Id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `NormalizedName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -54,10 +54,10 @@ CREATE TABLE IF NOT EXISTS `aspnetroles` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `aspnetroles`
+-- Déchargement des données de la table `AspNetRoles`
 --
 
-INSERT INTO `aspnetroles` (`Id`, `Name`, `NormalizedName`, `ConcurrencyStamp`) VALUES
+INSERT INTO `AspNetRoles` (`Id`, `Name`, `NormalizedName`, `ConcurrencyStamp`) VALUES
 ('1', 'Admin', 'ADMIN', NULL),
 ('2', 'Director', 'DIRECTOR', NULL),
 ('3', 'Manager', 'MANAGER', NULL),
@@ -67,11 +67,11 @@ INSERT INTO `aspnetroles` (`Id`, `Name`, `NormalizedName`, `ConcurrencyStamp`) V
 -- --------------------------------------------------------
 
 --
--- Structure de la table `aspnetuserclaims`
+-- Structure de la table `AspNetUserClaims`
 --
 
-DROP TABLE IF EXISTS `aspnetuserclaims`;
-CREATE TABLE IF NOT EXISTS `aspnetuserclaims` (
+DROP TABLE IF EXISTS `AspNetUserClaims`;
+CREATE TABLE IF NOT EXISTS `AspNetUserClaims` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `UserId` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ClaimType` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
@@ -83,11 +83,11 @@ CREATE TABLE IF NOT EXISTS `aspnetuserclaims` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `aspnetuserlogins`
+-- Structure de la table `AspNetUserLogins`
 --
 
-DROP TABLE IF EXISTS `aspnetuserlogins`;
-CREATE TABLE IF NOT EXISTS `aspnetuserlogins` (
+DROP TABLE IF EXISTS `AspNetUserLogins`;
+CREATE TABLE IF NOT EXISTS `AspNetUserLogins` (
   `LoginProvider` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ProviderKey` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ProviderDisplayName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
@@ -99,11 +99,11 @@ CREATE TABLE IF NOT EXISTS `aspnetuserlogins` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `aspnetuserroles`
+-- Structure de la table `AspNetUserRoles`
 --
 
-DROP TABLE IF EXISTS `aspnetuserroles`;
-CREATE TABLE IF NOT EXISTS `aspnetuserroles` (
+DROP TABLE IF EXISTS `AspNetUserRoles`;
+CREATE TABLE IF NOT EXISTS `AspNetUserRoles` (
   `UserId` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `RoleId` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`UserId`,`RoleId`),
@@ -111,10 +111,10 @@ CREATE TABLE IF NOT EXISTS `aspnetuserroles` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `aspnetuserroles`
+-- Déchargement des données de la table `AspNetUserRoles`
 --
 
-INSERT INTO `aspnetuserroles` (`UserId`, `RoleId`) VALUES
+INSERT INTO `AspNetUserRoles` (`UserId`, `RoleId`) VALUES
 ('46403910-91e2-434a-8c72-f814196d5026', '5'),
 ('569ae144-1a49-4a5e-b4f7-9fb9378d6e61', '5'),
 ('814ce78d-0eb9-43ff-9460-c20b31a9664a', '5'),
@@ -127,11 +127,11 @@ INSERT INTO `aspnetuserroles` (`UserId`, `RoleId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `aspnetusers`
+-- Structure de la table `AspNetUsers`
 --
 
-DROP TABLE IF EXISTS `aspnetusers`;
-CREATE TABLE IF NOT EXISTS `aspnetusers` (
+DROP TABLE IF EXISTS `AspNetUsers`;
+CREATE TABLE IF NOT EXISTS `AspNetUsers` (
   `Id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Discriminator` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Lastname` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
@@ -163,10 +163,10 @@ CREATE TABLE IF NOT EXISTS `aspnetusers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `aspnetusers`
+-- Déchargement des données de la table `AspNetUsers`
 --
 
-INSERT INTO `aspnetusers` (`Id`, `Discriminator`, `Lastname`, `Firstname`, `BirthdayDate`, `Address`, `PostalCode`, `City`, `MobilePhone`, `CountryId`, `TechnicianStatusId`, `UserName`, `NormalizedUserName`, `Email`, `NormalizedEmail`, `EmailConfirmed`, `PasswordHash`, `SecurityStamp`, `ConcurrencyStamp`, `PhoneNumber`, `PhoneNumberConfirmed`, `TwoFactorEnabled`, `LockoutEnd`, `LockoutEnabled`, `AccessFailedCount`) VALUES
+INSERT INTO `AspNetUsers` (`Id`, `Discriminator`, `Lastname`, `Firstname`, `BirthdayDate`, `Address`, `PostalCode`, `City`, `MobilePhone`, `CountryId`, `TechnicianStatusId`, `UserName`, `NormalizedUserName`, `Email`, `NormalizedEmail`, `EmailConfirmed`, `PasswordHash`, `SecurityStamp`, `ConcurrencyStamp`, `PhoneNumber`, `PhoneNumberConfirmed`, `TwoFactorEnabled`, `LockoutEnd`, `LockoutEnabled`, `AccessFailedCount`) VALUES
 ('46403910-91e2-434a-8c72-f814196d5026', 'Customer', 'Hasselmann', 'Fabien', '2024-05-01 15:25:00.000000', '88 rue de Liverdun', '54200', 'Villey-Saint-Etienne', '0676248686', 1, NULL, 'fab_dod@hotmail.com', 'FAB_DOD@HOTMAIL.COM', 'fab_dod@hotmail.com', 'FAB_DOD@HOTMAIL.COM', 0, 'AQAAAAIAAYagAAAAEP2FOEHtXaKrXrdFbOmwU82RVBfzwUpz7k4ryvFkJO/SHX2bMrHXB09HtU2uHSupdw==', 'FM4JTV4OBUC73GSKF4RJJPYK7QDRIPPD', '55928033-3627-47c0-baf3-9a5184cf6a9e', '0676248686', 0, 0, NULL, 1, 0),
 ('f7a06f72-ba08-4844-9736-06ef1120be8d', 'AppUser', 'Admin', 'Jack', '1997-04-16 16:13:00.000000', '10 rue Paix', '50000', 'Blougi', '0908070605', 1, 1, 'jack@dmin.fr', 'JACK@DMIN.FR', 'jack@dmin.fr', 'JACK@DMIN.FR', 0, 'AQAAAAIAAYagAAAAEBZckfmLPpsyohA9f+ocFfjCU5fkybw7I63iqvfGUjSUSqsCGnQtzN7z5OVm1LcX3A==', 'HY63GAQY3NZHLBBZB7SCESPCTKOIL2CP', '2b3a7c95-88af-4ab9-b584-2e53a2c70b32', '0102030405', 0, 0, NULL, 1, 0),
 ('ec20024e-f81c-4b38-b326-0a558a5e72e7', 'AppUser', 'Neymar', 'Jean', '1970-06-22 13:58:00.000000', '12 rue bonne intention', '66600', 'Anfayr', '0609090909', 1, 1, 'neymar@tm.com', 'NEYMAR@TM.COM', 'neymar@tm.com', 'NEYMAR@TM.COM', 0, 'AQAAAAIAAYagAAAAEOzQej6itXt/B9JhkEClZ88pGweIPWlpPkzck3knzD5R6AFA1PHz5IzxLT3cVxEIzA==', 'CYA7DW3QCIWWTZWTAURCKFGYLZBP6767', '2f8d2013-f8c8-4ee7-b418-6c46423499a3', '0304050607', 0, 0, NULL, 1, 0),
@@ -176,11 +176,11 @@ INSERT INTO `aspnetusers` (`Id`, `Discriminator`, `Lastname`, `Firstname`, `Birt
 -- --------------------------------------------------------
 
 --
--- Structure de la table `aspnetusertokens`
+-- Structure de la table `AspNetUserTokens`
 --
 
-DROP TABLE IF EXISTS `aspnetusertokens`;
-CREATE TABLE IF NOT EXISTS `aspnetusertokens` (
+DROP TABLE IF EXISTS `AspNetUserTokens`;
+CREATE TABLE IF NOT EXISTS `AspNetUserTokens` (
   `UserId` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `LoginProvider` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -194,8 +194,8 @@ CREATE TABLE IF NOT EXISTS `aspnetusertokens` (
 -- Structure de la table `buys`
 --
 
-DROP TABLE IF EXISTS `buys`;
-CREATE TABLE IF NOT EXISTS `buys` (
+DROP TABLE IF EXISTS `Buys`;
+CREATE TABLE IF NOT EXISTS `Buys` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `BuyingDate` datetime(6) DEFAULT NULL,
   `CustomerId` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -206,11 +206,11 @@ CREATE TABLE IF NOT EXISTS `buys` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `calls`
+-- Structure de la table `Calls`
 --
 
-DROP TABLE IF EXISTS `calls`;
-CREATE TABLE IF NOT EXISTS `calls` (
+DROP TABLE IF EXISTS `Calls`;
+CREATE TABLE IF NOT EXISTS `Calls` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `StartCallDate` datetime(6) DEFAULT NULL,
   `AnsweringCallDate` datetime(6) DEFAULT NULL,
@@ -223,11 +223,11 @@ CREATE TABLE IF NOT EXISTS `calls` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `countries`
+-- Structure de la table `Countries`
 --
 
-DROP TABLE IF EXISTS `countries`;
-CREATE TABLE IF NOT EXISTS `countries` (
+DROP TABLE IF EXISTS `Countries`;
+CREATE TABLE IF NOT EXISTS `Countries` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`Id`)
@@ -236,21 +236,21 @@ CREATE TABLE IF NOT EXISTS `countries` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `emergencystatuses`
+-- Structure de la table `EmergencyStatuses`
 --
 
-DROP TABLE IF EXISTS `emergencystatuses`;
-CREATE TABLE IF NOT EXISTS `emergencystatuses` (
+DROP TABLE IF EXISTS `EmergencyStatuses`;
+CREATE TABLE IF NOT EXISTS `EmergencyStatuses` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `emergencystatuses`
+-- Déchargement des données de la table `EmergencyStatuses`
 --
 
-INSERT INTO `emergencystatuses` (`Id`, `Name`) VALUES
+INSERT INTO `EmergencyStatuses` (`Id`, `Name`) VALUES
 (1, 'Critique'),
 (2, 'Elevé'),
 (3, 'Moyenne'),
@@ -260,11 +260,11 @@ INSERT INTO `emergencystatuses` (`Id`, `Name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `malfunctions`
+-- Structure de la table `Malfunctions`
 --
 
-DROP TABLE IF EXISTS `malfunctions`;
-CREATE TABLE IF NOT EXISTS `malfunctions` (
+DROP TABLE IF EXISTS `Malfunctions`;
+CREATE TABLE IF NOT EXISTS `Malfunctions` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `CategoryName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `SoftwareId` int NOT NULL,
@@ -272,10 +272,10 @@ CREATE TABLE IF NOT EXISTS `malfunctions` (
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `malfunctions`
+-- Déchargement des données de la table `Malfunctions`
 --
 
-INSERT INTO `malfunctions` (`Id`, `CategoryName`, `SoftwareId`) VALUES
+INSERT INTO `Malfunctions` (`Id`, `CategoryName`, `SoftwareId`) VALUES
 (1, 'Connexion', 1),
 (2, 'Erreurs/Bugs', 1),
 (3, 'Performance', 1),
@@ -289,11 +289,11 @@ INSERT INTO `malfunctions` (`Id`, `CategoryName`, `SoftwareId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `softwares`
+-- Structure de la table `Softwares`
 --
 
-DROP TABLE IF EXISTS `softwares`;
-CREATE TABLE IF NOT EXISTS `softwares` (
+DROP TABLE IF EXISTS `Softwares`;
+CREATE TABLE IF NOT EXISTS `Softwares` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `SoftwareName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Version` int DEFAULT NULL,
@@ -302,41 +302,41 @@ CREATE TABLE IF NOT EXISTS `softwares` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `softwares`
+-- Déchargement des données de la table `Softwares`
 --
 
-INSERT INTO `softwares` (`Id`, `SoftwareName`, `Version`, `WarrantyId`) VALUES
+INSERT INTO `Softwares` (`Id`, `SoftwareName`, `Version`, `WarrantyId`) VALUES
 (1, 'TicketMaster', 1, 3);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `technicianstatuses`
+-- Structure de la table `TechnicianStatuses`
 --
 
-DROP TABLE IF EXISTS `technicianstatuses`;
-CREATE TABLE IF NOT EXISTS `technicianstatuses` (
+DROP TABLE IF EXISTS `TechnicianStatuses`;
+CREATE TABLE IF NOT EXISTS `TechnicianStatuses` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `technicianstatuses`
+-- Déchargement des données de la table `TechnicianStatuses`
 --
 
-INSERT INTO `technicianstatuses` (`Id`, `Name`) VALUES
+INSERT INTO `TechnicianStatuses` (`Id`, `Name`) VALUES
 (1, 'Disponible'),
 (2, 'Indisponible');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tickethistories`
+-- Structure de la table `TicketHistories`
 --
 
-DROP TABLE IF EXISTS `tickethistories`;
-CREATE TABLE IF NOT EXISTS `tickethistories` (
+DROP TABLE IF EXISTS `TicketHistories`;
+CREATE TABLE IF NOT EXISTS `TicketHistories` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `StatusDate` datetime(6) DEFAULT NULL,
   `Observation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -347,10 +347,10 @@ CREATE TABLE IF NOT EXISTS `tickethistories` (
 ) ENGINE=MyISAM AUTO_INCREMENT=203 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `tickethistories`
+-- Déchargement des données de la table `TicketHistories`
 --
 
-INSERT INTO `tickethistories` (`Id`, `StatusDate`, `Observation`, `TicketStateId`, `UserId`, `TicketId`) VALUES
+INSERT INTO `TicketHistories` (`Id`, `StatusDate`, `Observation`, `TicketStateId`, `UserId`, `TicketId`) VALUES
 (44, '2024-05-28 16:54:47.270769', 'parfait !', 1, '46403910-91e2-434a-8c72-f814196d5026', 24),
 (43, '2024-05-28 16:54:38.168136', 'alors savoie ou bien ?', 1, '46403910-91e2-434a-8c72-f814196d5026', 24),
 (42, '2024-05-28 16:42:19.627662', 'hello', 1, '46403910-91e2-434a-8c72-f814196d5026', 24),
@@ -526,11 +526,11 @@ INSERT INTO `tickethistories` (`Id`, `StatusDate`, `Observation`, `TicketStateId
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tickets`
+-- Structure de la table `Tickets`
 --
 
-DROP TABLE IF EXISTS `tickets`;
-CREATE TABLE IF NOT EXISTS `tickets` (
+DROP TABLE IF EXISTS `Tickets`;
+CREATE TABLE IF NOT EXISTS `Tickets` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `CustomerId` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `MalfunctionId` int NOT NULL,
@@ -539,10 +539,10 @@ CREATE TABLE IF NOT EXISTS `tickets` (
 ) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `tickets`
+-- Déchargement des données de la table `Tickets`
 --
 
-INSERT INTO `tickets` (`Id`, `CustomerId`, `MalfunctionId`, `EmergencyStatusId`) VALUES
+INSERT INTO `Tickets` (`Id`, `CustomerId`, `MalfunctionId`, `EmergencyStatusId`) VALUES
 (1, '46403910-91e2-434a-8c72-f814196d5026', 1, 5),
 (2, '46403910-91e2-434a-8c72-f814196d5026', 2, 5),
 (24, '46403910-91e2-434a-8c72-f814196d5026', 7, 5),
@@ -598,21 +598,21 @@ INSERT INTO `tickets` (`Id`, `CustomerId`, `MalfunctionId`, `EmergencyStatusId`)
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ticketstates`
+-- Structure de la table `TicketStates`
 --
 
-DROP TABLE IF EXISTS `ticketstates`;
-CREATE TABLE IF NOT EXISTS `ticketstates` (
+DROP TABLE IF EXISTS `TicketStates`;
+CREATE TABLE IF NOT EXISTS `TicketStates` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `name` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `ticketstates`
+-- Déchargement des données de la table `TicketStates`
 --
 
-INSERT INTO `ticketstates` (`Id`, `name`) VALUES
+INSERT INTO `TicketStates` (`Id`, `name`) VALUES
 (1, 'Ouvert'),
 (2, 'En attente'),
 (3, 'Clôturé');
@@ -620,21 +620,21 @@ INSERT INTO `ticketstates` (`Id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `warranties`
+-- Structure de la table `Warranties`
 --
 
-DROP TABLE IF EXISTS `warranties`;
-CREATE TABLE IF NOT EXISTS `warranties` (
+DROP TABLE IF EXISTS `Warranties`;
+CREATE TABLE IF NOT EXISTS `Warranties` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Duration` int DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Déchargement des données de la table `warranties`
+-- Déchargement des données de la table `Warranties`
 --
 
-INSERT INTO `warranties` (`Id`, `Duration`) VALUES
+INSERT INTO `Warranties` (`Id`, `Duration`) VALUES
 (1, 12),
 (2, 24),
 (3, 48);

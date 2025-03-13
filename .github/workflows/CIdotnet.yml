@@ -7,6 +7,9 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./FilRouge_TicketMaster_MVC_Core
 
     steps:
       - name: Checkout du code
@@ -17,21 +20,12 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restaurer les dépendances
-        working-directory: ./FilRouge_TicketMaster_MVC_Core
-        run: dotnet restore
-
-      - name: Compiler l'application
-        working-directory: ./FilRouge_TicketMaster_MVC_Core
-        run: dotnet build --no-restore -c Release
-
-      - name: Exécuter les tests unitaires
-        working-directory: ./FilRouge_TicketMaster_MVC_Core
-        run: dotnet test --no-build -c Release --verbosity normal
-
-      - name: Publier l'application
-        working-directory: ./FilRouge_TicketMaster_MVC_Core
-        run: dotnet publish -c Release -o ../publish
+      - name: Restaurer, compiler, tester et publier l'application
+        run: |
+          dotnet restore
+          dotnet build --no-restore -c Release
+          dotnet test --no-build -c Release --verbosity normal
+          dotnet publish -c Release -o ../publish
 
       - name: Connexion à Docker Hub
         uses: docker/login-action@v3
